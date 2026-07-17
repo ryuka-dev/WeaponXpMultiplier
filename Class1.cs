@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace WeaponXpMultiplier
 {
-    [BepInPlugin("kumo.sulfur.weapon_xp_multiplier", "Weapon XP Multiplier", "1.0.0")]
+    [BepInPlugin("kumo.sulfur.weapon_xp_multiplier", "Weapon XP Multiplier", "1.0.2")]
     public sealed class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;

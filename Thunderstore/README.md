@@ -161,15 +161,6 @@ Optionally remove:
 BepInEx/config/kumo.sulfur.weapon_xp_multiplier.cfg
 ```
 
-## Changelog
-
-### 1.0.0
-
-- Initial release.
-- Added configurable weapon XP multiplier.
-- Supports 0x to 100x.
-- Supports decimal multipliers.
-
 ## SULFUR Config Localization Support
 
 This mod includes localization files for SULFUR Config.

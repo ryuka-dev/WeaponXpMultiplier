@@ -43,18 +43,20 @@ Profile and game paths are configured in `Directory.Build.props`.
 
 ## Thunderstore
 
-Release metadata lives in `Thunderstore/`.
+Release metadata lives in `Thunderstore/`. The folder is flat: its content (minus `nexusmods.txt` and generated archives) is exactly the release zip.
 
 The release DLL is copied to:
 
 ```text
-Thunderstore/BepInEx/plugins/WeaponXpMultiplier/WeaponXpMultiplier.dll
+Thunderstore/WeaponXpMultiplier.dll
 ```
 
-Localization files for the SULFUR Config options page live next to the DLL in:
+Localization files for the SULFUR Config options page live in:
 
 ```text
-Thunderstore/BepInEx/plugins/WeaponXpMultiplier/lang/
+Thunderstore/lang/
 ```
+
+`Thunderstore/nexusmods.txt` is the generated NexusMods BBCode description (README + CHANGELOG); it is committed but never packaged.
 
 The DLL itself is generated output and is not committed.

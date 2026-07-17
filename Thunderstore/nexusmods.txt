@@ -1,0 +1,163 @@
+[color=DarkOrange][b]Weapon XP Multiplier[/b][/color]
+
+A BepInEx mod for [b]SULFUR[/b] that lets you configure weapon level-up XP from 0x to 100x.
+
+[color=RoyalBlue][b]What This Mod Does[/b][/color]
+
+This mod adds a configurable multiplier for weapon XP.
+
+Default value:
+
+[code]2.0x[/code]
+Examples:
+
+[code]XpMultiplier = 0     -> no weapon XP
+XpMultiplier = 0.01  -> 1% weapon XP
+XpMultiplier = 0.2   -> 20% weapon XP
+XpMultiplier = 1     -> vanilla weapon XP
+XpMultiplier = 2     -> double weapon XP
+XpMultiplier = 10.2  -> 10.2x weapon XP
+XpMultiplier = 100   -> 100x weapon XP[/code]
+[color=RoyalBlue][b]What It Affects[/b][/color]
+
+This mod patches weapon XP gain through:
+
+[code]PerfectRandom.Sulfur.Core.Weapons.Weapon.AddExperience(float)[/code]
+It affects non-melee, non-throwable weapons that normally gain weapon XP.
+
+[color=RoyalBlue][b]What It Does NOT Affect[/b][/color]
+
+This mod does not change:
+
+[code]Player XP
+Money
+Loot
+Enemy stats
+Weapon damage
+Weapon fire rate
+Weapon durability
+Melee weapon XP
+Throwable weapon XP[/code]
+[color=RoyalBlue][b]Configuration[/b][/color]
+
+After launching the game once with the mod installed, a config file will be generated at:
+
+[code]BepInEx/config/kumo.sulfur.weapon_xp_multiplier.cfg[/code]
+Default config:
+
+[code][General]
+
+EnableMod = true
+XpMultiplier = 2
+
+[Debug]
+
+LogXpChanges = false[/code]
+[color=DodgerBlue][b]EnableMod[/b][/color]
+
+[code]EnableMod = true[/code]
+Set to [color=#ffff00]false[/color] to disable the mod without uninstalling it.
+
+[color=DodgerBlue][b]XpMultiplier[/b][/color]
+
+[code]XpMultiplier = 2[/code]
+Weapon XP multiplier.
+
+Allowed range:
+
+[code]0 to 100[/code]
+Decimal values are supported.
+
+Use a period for decimals:
+
+[code]XpMultiplier = 0.2
+XpMultiplier = 10.2[/code]
+Do not use a comma:
+
+[code]XpMultiplier = 0,2[/code]
+[color=DodgerBlue][b]LogXpChanges[/b][/color]
+
+[code]LogXpChanges = false[/code]
+Set this to [color=#ffff00]true[/color] only for testing.
+
+For normal gameplay, keep it set to [color=#ffff00]false[/color].
+
+[color=RoyalBlue][b]Installation[/b][/color]
+
+[color=DodgerBlue][b]Thunderstore / r2modman[/b][/color]
+
+Install the mod through Thunderstore Mod Manager or r2modman.
+
+Make sure the required BepInExPack dependency is installed.
+
+[color=DodgerBlue][b]Manual Installation[/b][/color]
+
+[list=1]
+[*]Install BepInExPack for SULFUR.[/*]
+[*]Start the game once so BepInEx creates its folders.[/*]
+[*]Place [color=#ffff00]WeaponXpMultiplier.dll[/color] into:[/*]
+[/list]
+[code]BepInEx/plugins/[/code]
+4. Start the game.
+5. Edit the generated config file if you want a different multiplier.
+
+[color=RoyalBlue][b]Compatibility[/b][/color]
+
+This mod should be compatible with most mods.
+
+If another mod also changes weapon XP through [color=#ffff00]Weapon.AddExperience[/color], the final XP amount may depend on patch order.
+
+Do not install this together with a fixed [color=#ffff00]Weapon Double XP[/color] mod unless you intentionally want the multipliers to stack.
+
+[color=RoyalBlue][b]Uninstallation[/b][/color]
+
+Remove:
+
+[code]BepInEx/plugins/WeaponXpMultiplier.dll[/code]
+Optionally remove:
+
+[code]BepInEx/config/kumo.sulfur.weapon_xp_multiplier.cfg[/code]
+[color=RoyalBlue][b]SULFUR Config Localization Support[/b][/color]
+
+This mod includes localization files for SULFUR Config.
+
+This localization support is only for the in-game configuration page provided by SULFUR Config. It localizes the mod name, config sections, setting names, and setting descriptions shown in the config UI.
+
+It does not change the game’s own text, item names, dialogue, or gameplay content.
+
+Supported SULFUR Config languages:
+
+[list]
+[*]English[/*]
+[*]Simplified Chinese[/*]
+[*]Swedish[/*]
+[*]French[/*]
+[*]Italian[/*]
+[*]German[/*]
+[*]Spanish[/*]
+[*]Portuguese[/*]
+[*]Russian[/*]
+[*]Polish[/*]
+[*]Japanese[/*]
+[*]Korean[/*]
+[*]Turkish[/*]
+[*]Arabic[/*]
+[/list]
+[color=DarkOrange][b]Changelog[/b][/color]
+
+[color=RoyalBlue][b]1.0.2[/b][/color]
+
+[list]
+[*]Moved the localization files into a [color=#ffff00]lang/[/color] folder next to the plugin DLL (the layout preferred by SULFUR Native UI Lib). No gameplay changes.[/*]
+[*]Verified against SULFUR v0.18.4: [color=#ffff00]Weapon.AddExperience(float)[/color] is unchanged, so the multiplier behaves exactly as before.[/*]
+[/list]
+[color=RoyalBlue][b]1.0.1[/b][/color]
+
+[list]
+[*]Added localization files for the SULFUR Config options page (14 languages). No gameplay changes.[/*]
+[/list]
+[color=RoyalBlue][b]1.0.0[/b][/color]
+
+[list]
+[*]Initial release: configurable 0-100x weapon XP multiplier patched onto [color=#ffff00]Weapon.AddExperience(float)[/color].[/*]
+[/list]
