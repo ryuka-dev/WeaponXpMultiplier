@@ -1,0 +1,18 @@
+# Build output
+bin/
+obj/
+
+# IDE/user state
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.csproj.user
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+Thumbs.db
+Desktop.ini
