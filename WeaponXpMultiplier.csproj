@@ -57,4 +57,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="DeployToGaleProfile" AfterTargets="Build" Condition="'$(DeployToSulfurProfile)' == 'true'">
+    <ItemGroup>
+      <LangFiles Include="$(ThunderstorePluginDir)\lang\*.json" />
+    </ItemGroup>
+    <MakeDir Directories="$(SulfurBepInExPluginsDir)\WeaponXpMultiplier" />
+    <MakeDir Directories="$(ThunderstorePluginDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SulfurBepInExPluginsDir)\WeaponXpMultiplier" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ThunderstorePluginDir)" />
+    <Copy SourceFiles="@(LangFiles)" DestinationFolder="$(SulfurBepInExPluginsDir)\WeaponXpMultiplier\lang" />
+  </Target>
 </Project>

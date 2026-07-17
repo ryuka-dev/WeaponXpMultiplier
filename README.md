@@ -32,3 +32,29 @@ dotnet build WeaponXpMultiplier.csproj -c Release
 ```
 
 The plugin DLL is written to `bin/Release/WeaponXpMultiplier.dll`.
+
+Deploy to the configured Gale profile and copy the release DLL into the Thunderstore package tree:
+
+```powershell
+dotnet build WeaponXpMultiplier.csproj -c Release -p:DeployToSulfurProfile=true
+```
+
+Profile and game paths are configured in `Directory.Build.props`.
+
+## Thunderstore
+
+Release metadata lives in `Thunderstore/`.
+
+The release DLL is copied to:
+
+```text
+Thunderstore/BepInEx/plugins/WeaponXpMultiplier/WeaponXpMultiplier.dll
+```
+
+Localization files for the SULFUR Config options page live next to the DLL in:
+
+```text
+Thunderstore/BepInEx/plugins/WeaponXpMultiplier/lang/
+```
+
+The DLL itself is generated output and is not committed.
