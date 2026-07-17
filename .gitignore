@@ -10,6 +10,11 @@ obj/
 *.suo
 *.csproj.user
 
+# Release/build artifacts
+*.dll
+*.zip
+*.psd
+
 # Logs and temporary files
 *.log
 *.tmp

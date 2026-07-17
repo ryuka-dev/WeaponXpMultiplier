@@ -10,8 +10,8 @@ Weapon XP Multiplier is a BepInEx mod for SULFUR that multiplies the experience 
 
 ## Compatibility
 
-- Built and verified against SULFUR v0.18.4.
-- The mod locates `Weapon.AddExperience(float)` by reflection at startup and logs an error if the game update ever removes or renames it, so failures are visible instead of silent.
+- Compatible with SULFUR v0.17.4 through v0.18.4: `Weapon.AddExperience(float)` is unchanged across these versions (checked against decompiled v0.18.4 assemblies).
+- The mod locates `Weapon.AddExperience(float)` by reflection at startup and logs an error if a game update ever removes or renames it, so failures are visible instead of silent.
 
 ## Configuration
 

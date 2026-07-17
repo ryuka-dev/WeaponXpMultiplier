@@ -1,0 +1,9 @@
+{
+  "name": "Weapon_XP_Multiplier",
+  "version_number": "1.0.1",
+  "website_url": "",
+  "description": "Adds a configurable 0-100x weapon XP multiplier for SULFUR.",
+  "dependencies": [
+    "BepInEx-BepInExPack-5.4.2305"
+  ]
+}
