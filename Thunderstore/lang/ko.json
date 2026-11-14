@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Weapon.AddExperience로 얻는 무기 경험치 배율을 조정합니다."
+      "value": "처치로 무기가 얻는 경험치에 배율을 적용합니다."
     },
     {
       "key": "section.General",

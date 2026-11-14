@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Adjusts weapon XP gained from Weapon.AddExperience."
+      "value": "Multiplies the XP weapons earn from kills."
     },
     {
       "key": "section.General",

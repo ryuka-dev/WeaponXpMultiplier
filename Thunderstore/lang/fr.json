@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Ajuste l’XP d’arme gagnée via Weapon.AddExperience."
+      "value": "Multiplie l’XP d’arme gagnée en éliminant des ennemis."
     },
     {
       "key": "section.General",

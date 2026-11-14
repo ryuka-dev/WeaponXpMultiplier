@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Настраивает опыт оружия, получаемый через Weapon.AddExperience."
+      "value": "Умножает опыт, который оружие получает за убийства."
     },
     {
       "key": "section.General",

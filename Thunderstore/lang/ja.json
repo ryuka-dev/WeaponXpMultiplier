@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Weapon.AddExperience による武器経験値の獲得倍率を調整します。"
+      "value": "敵を倒したときに武器が得る経験値に倍率をかけます。"
     },
     {
       "key": "section.General",

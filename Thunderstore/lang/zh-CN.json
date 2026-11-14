@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "调整通过 Weapon.AddExperience 获得的武器经验倍率。"
+      "value": "调整武器通过击杀获得的经验倍率。"
     },
     {
       "key": "section.General",

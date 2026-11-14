@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Regola l’XP dell’arma ottenuta da Weapon.AddExperience."
+      "value": "Moltiplica l’XP dell’arma ottenuta dalle uccisioni."
     },
     {
       "key": "section.General",

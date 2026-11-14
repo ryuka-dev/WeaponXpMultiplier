@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "يضبط خبرة السلاح المكتسبة عبر Weapon.AddExperience."
+      "value": "يضاعف الخبرة التي يكسبها السلاح من القتل."
     },
     {
       "key": "section.General",

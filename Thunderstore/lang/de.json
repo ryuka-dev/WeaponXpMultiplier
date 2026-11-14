@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Passt die über Weapon.AddExperience erhaltene Waffen-XP an."
+      "value": "Multipliziert die Waffen-XP, die durch Kills verdient werden."
     },
     {
       "key": "section.General",

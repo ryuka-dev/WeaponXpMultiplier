@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Weapon.AddExperience ile kazanılan silah XP miktarını ayarlar."
+      "value": "Silahların öldürmelerden kazandığı XP'yi çarpar."
     },
     {
       "key": "section.General",

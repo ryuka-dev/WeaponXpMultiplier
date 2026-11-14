@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Ajusta a XP de arma recebida por Weapon.AddExperience."
+      "value": "Multiplica a XP de arma obtida ao matar inimigos."
     },
     {
       "key": "section.General",

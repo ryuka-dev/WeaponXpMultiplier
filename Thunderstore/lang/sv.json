@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Justerar vapenerfarenhet som fås från Weapon.AddExperience."
+      "value": "Multiplicerar vapenerfarenheten som vapen får från dödade fiender."
     },
     {
       "key": "section.General",

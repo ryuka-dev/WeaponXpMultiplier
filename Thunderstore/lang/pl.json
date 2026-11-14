@@ -6,7 +6,7 @@
     },
     {
       "key": "plugin.description",
-      "value": "Dostosowuje PD broni otrzymywane przez Weapon.AddExperience."
+      "value": "Mnoży PD, które broń zdobywa za zabójstwa."
     },
     {
       "key": "section.General",
@@ -30,7 +30,7 @@
     },
     {
       "key": "entry.General.XpMultiplier.description",
-      "value": "Mnożnik PD broni. 1.0 = wersja podstawowa, 2.0 = podwójne PD, 10.0 = dziesięć razy PD."
+      "value": "Mnożnik PD broni. 1.0 = wersja podstawowa, 2.0 = podwójne PD, 10.0 = dziesięciokrotne PD."
     },
     {
       "key": "entry.Debug.LogXpChanges.name",

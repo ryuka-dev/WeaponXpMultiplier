@@ -1,0 +1,44 @@
+{
+  "entries": [
+    {
+      "key": "plugin.name",
+      "value": "武器經驗值倍率"
+    },
+    {
+      "key": "plugin.description",
+      "value": "調整武器透過擊倒敵人獲得的經驗值倍率。"
+    },
+    {
+      "key": "section.General",
+      "value": "一般"
+    },
+    {
+      "key": "section.Debug",
+      "value": "偵錯"
+    },
+    {
+      "key": "entry.General.EnableMod.name",
+      "value": "啟用 Mod"
+    },
+    {
+      "key": "entry.General.EnableMod.description",
+      "value": "啟用武器經驗值倍率。"
+    },
+    {
+      "key": "entry.General.XpMultiplier.name",
+      "value": "經驗值倍率"
+    },
+    {
+      "key": "entry.General.XpMultiplier.description",
+      "value": "武器經驗值倍率。1.0 為原版，2.0 為雙倍經驗值，10.0 為十倍經驗值。"
+    },
+    {
+      "key": "entry.Debug.LogXpChanges.name",
+      "value": "記錄經驗值變化"
+    },
+    {
+      "key": "entry.Debug.LogXpChanges.description",
+      "value": "將武器經驗值變化輸出到 BepInEx 日誌。一般遊玩時請保持關閉。"
+    }
+  ]
+}
