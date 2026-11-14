@@ -32,7 +32,11 @@ This mod patches weapon XP gain through:
 PerfectRandom.Sulfur.Core.Weapons.Weapon.AddExperience(float)
 ```
 
+Weapons earn XP when you kill an enemy you damaged. The multiplier is applied to that amount after the game's own bonuses (for example Library Card or Lock of the Magus), so it stacks with them.
+
 It affects non-melee, non-throwable weapons that normally gain weapon XP.
+
+With a high multiplier a single kill can raise a weapon by several ranks at once. The game then shows one rank-up notice, but every rank (and its enchantment slot) is still granted.
 
 ## What It Does NOT Affect
 
@@ -102,11 +106,13 @@ XpMultiplier = 0.2
 XpMultiplier = 10.2
 ```
 
-Do not use a comma:
+Do not use a comma. The comma is read as a thousands separator, so this gives **2x**, not 0.2x:
 
 ```ini
 XpMultiplier = 0,2
 ```
+
+Values outside 0 to 100 are clamped to the nearest limit.
 
 ### LogXpChanges
 
@@ -130,16 +136,13 @@ Make sure the required BepInExPack dependency is installed.
 
 1. Install BepInExPack for SULFUR.
 2. Start the game once so BepInEx creates its folders.
-3. Place `WeaponXpMultiplier.dll` into:
-
-```text
-BepInEx/plugins/
-```
-
+3. Create the folder `BepInEx/plugins/WeaponXpMultiplier/` and copy `WeaponXpMultiplier.dll` and the `lang` folder into it. The `lang` folder is only needed for translated SULFUR Config pages.
 4. Start the game.
 5. Edit the generated config file if you want a different multiplier.
 
 ## Compatibility
+
+Tested with SULFUR 1.0.6.
 
 This mod should be compatible with most mods.
 
@@ -149,10 +152,10 @@ Do not install this together with a fixed `Weapon Double XP` mod unless you inte
 
 ## Uninstallation
 
-Remove:
+Remove the folder:
 
 ```text
-BepInEx/plugins/WeaponXpMultiplier.dll
+BepInEx/plugins/WeaponXpMultiplier/
 ```
 
 Optionally remove:
@@ -173,6 +176,7 @@ Supported SULFUR Config languages:
 
 - English
 - Simplified Chinese
+- Traditional Chinese
 - Swedish
 - French
 - Italian
