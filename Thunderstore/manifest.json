@@ -1,6 +1,6 @@
 {
   "name": "Weapon_XP_Multiplier",
-  "version_number": "1.0.2",
+  "version_number": "1.0.3",
   "website_url": "https://github.com/ryuka-dev/WeaponXpMultiplier",
   "description": "Adds a configurable 0-100x weapon XP multiplier for SULFUR.",
   "dependencies": [

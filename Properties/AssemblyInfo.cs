@@ -11,4 +11,4 @@ using System.Runtime.InteropServices;
 // The assembly version stays at 1.0.0.0 so the identity of the released assembly does not change.
 // The mod's version is the one in [BepInPlugin] (Plugin.PluginVersion).
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.2.0")]
+[assembly: AssemblyFileVersion("1.0.3.0")]

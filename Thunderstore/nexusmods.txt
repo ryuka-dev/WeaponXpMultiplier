@@ -1,4 +1,4 @@
-[color=DarkOrange][b]Weapon XP Multiplier[/b][/color]
+[font=Arial Black][color=DarkOrange][size=5][b]Weapon XP Multiplier[/b][/size][/color][/font]
 
 A BepInEx mod for [b]SULFUR[/b] that lets you configure weapon level-up XP from 0x to 100x.
 
@@ -23,7 +23,11 @@ XpMultiplier = 100   -> 100x weapon XP[/code]
 This mod patches weapon XP gain through:
 
 [code]PerfectRandom.Sulfur.Core.Weapons.Weapon.AddExperience(float)[/code]
+Weapons earn XP when you kill an enemy you damaged. The multiplier is applied to that amount after the game's own bonuses (for example Library Card or Lock of the Magus), so it stacks with them.
+
 It affects non-melee, non-throwable weapons that normally gain weapon XP.
+
+With a high multiplier a single kill can raise a weapon by several ranks at once. The game then shows one rank-up notice, but every rank (and its enchantment slot) is still granted.
 
 [color=RoyalBlue][b]What It Does NOT Affect[/b][/color]
 
@@ -72,9 +76,11 @@ Use a period for decimals:
 
 [code]XpMultiplier = 0.2
 XpMultiplier = 10.2[/code]
-Do not use a comma:
+Do not use a comma. The comma is read as a thousands separator, so this gives [b]2x[/b], not 0.2x:
 
 [code]XpMultiplier = 0,2[/code]
+Values outside 0 to 100 are clamped to the nearest limit.
+
 [color=DodgerBlue][b]LogXpChanges[/b][/color]
 
 [code]LogXpChanges = false[/code]
@@ -95,13 +101,13 @@ Make sure the required BepInExPack dependency is installed.
 [list=1]
 [*]Install BepInExPack for SULFUR.[/*]
 [*]Start the game once so BepInEx creates its folders.[/*]
-[*]Place [color=#ffff00]WeaponXpMultiplier.dll[/color] into:[/*]
+[*]Create the folder [color=#ffff00]BepInEx/plugins/WeaponXpMultiplier/[/color] and copy [color=#ffff00]WeaponXpMultiplier.dll[/color] and the [color=#ffff00]lang[/color] folder into it. The [color=#ffff00]lang[/color] folder is only needed for translated SULFUR Config pages.[/*]
+[*]Start the game.[/*]
+[*]Edit the generated config file if you want a different multiplier.[/*]
 [/list]
-[code]BepInEx/plugins/[/code]
-4. Start the game.
-5. Edit the generated config file if you want a different multiplier.
-
 [color=RoyalBlue][b]Compatibility[/b][/color]
+
+Tested with SULFUR 1.0.6.
 
 This mod should be compatible with most mods.
 
@@ -111,9 +117,9 @@ Do not install this together with a fixed [color=#ffff00]Weapon Double XP[/color
 
 [color=RoyalBlue][b]Uninstallation[/b][/color]
 
-Remove:
+Remove the folder:
 
-[code]BepInEx/plugins/WeaponXpMultiplier.dll[/code]
+[code]BepInEx/plugins/WeaponXpMultiplier/[/code]
 Optionally remove:
 
 [code]BepInEx/config/kumo.sulfur.weapon_xp_multiplier.cfg[/code]
@@ -130,6 +136,7 @@ Supported SULFUR Config languages:
 [list]
 [*]English[/*]
 [*]Simplified Chinese[/*]
+[*]Traditional Chinese[/*]
 [*]Swedish[/*]
 [*]French[/*]
 [*]Italian[/*]
@@ -143,8 +150,18 @@ Supported SULFUR Config languages:
 [*]Turkish[/*]
 [*]Arabic[/*]
 [/list]
-[color=DarkOrange][b]Changelog[/b][/color]
+[font=Arial Black][color=DarkOrange][size=5][b]Changelog[/b][/size][/color][/font]
 
+[color=RoyalBlue][b]1.0.3[/b][/color]
+
+[list]
+[*]Added a Traditional Chinese (zh-TW) translation for the SULFUR Config settings page.[/*]
+[*]The plugin now reports its real version. 1.0.2 still called itself 1.0.0 in the BepInEx log and in config managers.[/*]
+[*]If a game update ever moves the code this mod patches, the log now says the mod is inactive.[/*]
+[*]The settings page description no longer shows an internal method name.[/*]
+[*]Readme fixes: manual install now includes the [color=#ffff00]lang[/color] folder, and it explains that a comma in [color=#ffff00]XpMultiplier[/color] is read as a thousands separator ([color=#ffff00]0,2[/color] gives 2x).[/*]
+[*]No gameplay changes. Checked on SULFUR 1.0.6.[/*]
+[/list]
 [color=RoyalBlue][b]1.0.2[/b][/color]
 
 [list]

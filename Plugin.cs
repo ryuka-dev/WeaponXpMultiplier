@@ -14,7 +14,7 @@ namespace WeaponXpMultiplier
         // Released GUID: it names the player's config file and the Harmony ID. Never rename it.
         public const string PluginGuid = "kumo.sulfur.weapon_xp_multiplier";
         public const string PluginName = "Weapon XP Multiplier";
-        public const string PluginVersion = "1.0.2";
+        public const string PluginVersion = "1.0.3";
 
         internal static ManualLogSource Log;
 
