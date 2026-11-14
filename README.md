@@ -1,62 +1,59 @@
 # Weapon XP Multiplier
 
-Weapon XP Multiplier is a BepInEx mod for SULFUR that multiplies the experience weapons gain from kills.
+A BepInEx 5 mod for SULFUR that multiplies the XP weapons earn from kills. The player-facing description is in `Thunderstore/README.md`.
 
-## Features
+## How it works
 
-- Configurable weapon XP multiplier (`XpMultiplier`, default `2.0`, `1.0` = vanilla).
-- Can be toggled without uninstalling (`EnableMod`).
-- Optional debug logging of every XP change (`LogXpChanges`).
+The mod puts a Harmony prefix on:
 
-## Compatibility
+```text
+PerfectRandom.Sulfur.Core.Weapons.Weapon.AddExperience(float)
+```
 
-- Compatible with SULFUR v0.17.4 through v0.18.4: `Weapon.AddExperience(float)` is unchanged across these versions (checked against decompiled v0.18.4 assemblies).
-- The mod locates `Weapon.AddExperience(float)` by reflection at startup and logs an error if a game update ever removes or renames it, so failures are visible instead of silent.
+The prefix multiplies the `experienceIncrease` argument by `XpMultiplier`. Zero, negative and NaN amounts pass through untouched.
+
+The only gameplay callers are in `Npc.DistributeExperience(int)`, which runs from `Npc.GiveExperience()` when an enemy the player damaged dies. It applies `Stat_BonusXP` (Library Card, Lock of the Magus) first, then splits the result evenly across the weapons that took part in the kill, or gives it all to the equipped weapon if none did. Each share goes through `AddExperience`, so the total is still multiplied by `XpMultiplier`.
+
+Paths that deliberately bypass the patch:
+
+- Loading a save writes the Experience attribute directly (`ItemStats.LoadAttributesFromData`), so stored XP is never multiplied again.
+- `DevToolsManager.AddExperienceToCurrentWeapon` calls `InventoryItem.AddExperience` directly.
+
+The game types are referenced directly (`PerfectRandom.Sulfur.Core`), so a rename in a game update shows up as a build error. At runtime, if the method is missing or patching fails, the plugin logs an error saying it is inactive.
+
+Last checked against SULFUR 1.0.6 (build 26490055).
 
 ## Configuration
 
-The config file is created on first launch at `BepInEx/config/kumo.sulfur.weapon_xp_multiplier.cfg`.
+`BepInEx/config/kumo.sulfur.weapon_xp_multiplier.cfg`
 
-| Setting | Section | Default | Description |
-| --- | --- | --- | --- |
-| `EnableMod` | General | `true` | Enable the multiplier. |
-| `XpMultiplier` | General | `2.0` | Weapon XP multiplier. `1.0` = vanilla. |
-| `LogXpChanges` | Debug | `false` | Log every weapon XP change. |
+- `General.EnableMod` (default `true`)
+- `General.XpMultiplier` (default `2.0`, range 0 to 100, `1.0` = vanilla). BepInEx clamps the value on load and on every change.
+- `Debug.LogXpChanges` (default `false`): logs every multiplied XP gain
+
+The GUID `kumo.sulfur.weapon_xp_multiplier` is a released identifier: it names the config file and the Harmony ID. Do not change it.
 
 ## Build
 
-Requires the game assemblies referenced in `WeaponXpMultiplier.csproj` (BepInEx core DLLs and Unity DLLs from a local SULFUR install).
+Machine-specific paths (game install, Gale profile) live only in `Directory.Build.props`; each can be overridden on the command line, e.g. `-p:SulfurGameDir=...`.
 
 ```powershell
 dotnet build WeaponXpMultiplier.csproj -c Release
 ```
 
-The plugin DLL is written to `bin/Release/WeaponXpMultiplier.dll`.
-
-Deploy to the configured Gale profile and copy the release DLL into the Thunderstore package tree:
+Build, deploy to the configured Gale profile, and copy the DLL into the package folder (Release only):
 
 ```powershell
 dotnet build WeaponXpMultiplier.csproj -c Release -p:DeployToSulfurProfile=true
 ```
 
-Profile and game paths are configured in `Directory.Build.props`.
+## Packaging
 
-## Thunderstore
+`Thunderstore/` is flat: its content, minus `nexusmods.txt` and generated archives, is exactly the release zip.
 
-Release metadata lives in `Thunderstore/`. The folder is flat: its content (minus `nexusmods.txt` and generated archives) is exactly the release zip.
+- `manifest.json`, `README.md` (store page), `CHANGELOG.md`, `icon.png`
+- `lang/*.json`: SULFUR Config localization for this mod's settings page (15 languages)
+- `WeaponXpMultiplier.dll`: copied in by the Release deploy build, not committed
+- `nexusmods.txt`: generated NexusMods description (README + CHANGELOG), committed, not packaged
 
-The release DLL is copied to:
-
-```text
-Thunderstore/WeaponXpMultiplier.dll
-```
-
-Localization files for the SULFUR Config options page live in:
-
-```text
-Thunderstore/lang/
-```
-
-`Thunderstore/nexusmods.txt` is the generated NexusMods BBCode description (README + CHANGELOG); it is committed but never packaged.
-
-The DLL itself is generated output and is not committed.
+The version appears in three places and must match: `Thunderstore/manifest.json`, the top entry of `Thunderstore/CHANGELOG.md`, and `Plugin.PluginVersion`.

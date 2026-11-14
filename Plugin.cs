@@ -2,14 +2,20 @@
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
+using PerfectRandom.Sulfur.Core.Weapons;
 using System;
 using System.Reflection;
 
 namespace WeaponXpMultiplier
 {
-    [BepInPlugin("kumo.sulfur.weapon_xp_multiplier", "Weapon XP Multiplier", "1.0.2")]
+    [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     public sealed class Plugin : BaseUnityPlugin
     {
+        // Released GUID: it names the player's config file and the Harmony ID. Never rename it.
+        public const string PluginGuid = "kumo.sulfur.weapon_xp_multiplier";
+        public const string PluginName = "Weapon XP Multiplier";
+        public const string PluginVersion = "1.0.2";
+
         internal static ManualLogSource Log;
 
         internal static ConfigEntry<bool> EnableMod;
@@ -17,9 +23,6 @@ namespace WeaponXpMultiplier
         internal static ConfigEntry<bool> LogXpChanges;
 
         private Harmony harmony;
-
-        private const string TargetTypeName =
-            "PerfectRandom.Sulfur.Core.Weapons.Weapon";
 
         private void Awake()
         {
@@ -29,9 +32,11 @@ namespace WeaponXpMultiplier
                 "General",
                 "EnableMod",
                 true,
-                "Enable weapon XP multiplier."
+                "Enable the weapon XP multiplier."
             );
 
+            // AcceptableValueRange clamps on load and on every set (NaN becomes 0),
+            // so the prefix can use the value as is.
             XpMultiplier = Config.Bind(
                 "General",
                 "XpMultiplier",
@@ -46,41 +51,36 @@ namespace WeaponXpMultiplier
                 "Debug",
                 "LogXpChanges",
                 false,
-                "Log weapon XP changes. Keep false for normal gameplay."
+                "Log weapon XP changes to the BepInEx log. Keep this off for normal gameplay."
             );
 
-            harmony = new Harmony("kumo.sulfur.weapon_xp_multiplier");
+            MethodInfo target = AccessTools.Method(
+                typeof(Weapon),
+                nameof(Weapon.AddExperience),
+                new[] { typeof(float) }
+            );
 
-            Type weaponType = AccessTools.TypeByName(TargetTypeName);
-
-            if (weaponType == null)
+            if (target == null)
             {
-                Logger.LogError("Could not find type: " + TargetTypeName);
+                Logger.LogError(
+                    "Weapon.AddExperience(float) was not found. The game has probably changed; the mod is inactive."
+                );
                 return;
             }
 
-            MethodInfo addExperienceMethod = AccessTools.Method(
-                weaponType,
-                "AddExperience",
-                new Type[] { typeof(float) }
-            );
+            harmony = new Harmony(PluginGuid);
 
-            if (addExperienceMethod == null)
+            try
             {
-                Logger.LogError("Could not find Weapon.AddExperience(float).");
+                harmony.Patch(target, prefix: new HarmonyMethod(typeof(Plugin), nameof(AddExperiencePrefix)));
+            }
+            catch (Exception e)
+            {
+                Logger.LogError("Patching Weapon.AddExperience(float) failed; the mod is inactive. " + e);
                 return;
             }
 
-            HarmonyMethod prefix = new HarmonyMethod(
-                typeof(Plugin).GetMethod(
-                    nameof(WeaponXpMultiplierPrefix),
-                    BindingFlags.Static | BindingFlags.NonPublic
-                )
-            );
-
-            harmony.Patch(addExperienceMethod, prefix: prefix);
-
-            Logger.LogInfo("Weapon XP Multiplier loaded. Patched Weapon.AddExperience(float).");
+            Logger.LogInfo("Patched Weapon.AddExperience(float).");
         }
 
         private void OnDestroy()
@@ -88,31 +88,27 @@ namespace WeaponXpMultiplier
             harmony?.UnpatchSelf();
         }
 
-        private static void WeaponXpMultiplierPrefix(object __instance, ref float __0)
+        private static void AddExperiencePrefix(Weapon __instance, ref float experienceIncrease)
         {
             if (!EnableMod.Value)
                 return;
 
-            if (__0 <= 0f)
+            // Also rejects NaN.
+            if (!(experienceIncrease > 0f))
                 return;
 
             float multiplier = XpMultiplier.Value;
 
-            if (float.IsNaN(multiplier) || float.IsInfinity(multiplier))
-                multiplier = 1f;
-
-            multiplier = Math.Max(0f, Math.Min(100f, multiplier));
-
             if (Math.Abs(multiplier - 1f) < 0.0001f)
                 return;
 
-            float originalXp = __0;
-            __0 *= multiplier;
+            float originalXp = experienceIncrease;
+            experienceIncrease *= multiplier;
 
             if (LogXpChanges.Value)
             {
                 string weaponName = __instance != null ? __instance.ToString() : "Unknown Weapon";
-                Log?.LogInfo("Weapon XP changed for " + weaponName + ": " + originalXp + " -> " + __0);
+                Log.LogInfo("Weapon XP changed for " + weaponName + ": " + originalXp + " -> " + experienceIncrease);
             }
         }
     }
